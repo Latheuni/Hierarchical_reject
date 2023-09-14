@@ -14,4 +14,12 @@ General_analysis.py contains the functions necessary to run the analysis in the 
   - with K-fold cross-validation
     - for flat annotation: 
       - ```Run_Flat_KF```
-      - ```Run_Flat_KF_sparse```, 
+      - ```Run_Flat_KF_sparse```: with sparse input data
+      - ```Run_Flat_KF_splitted```: runs only one specified fold within the K-fold cross-validation schee
+      - ```Run_Flat_KF_sparse_splitted```: with sparse input data and only runs one specified fold
+    - for hierarchical annotation
+      - ```Run_H_KF```
+      - ```Run_H_KF_sparse```
+- Functions to save the results:
+   - ```SaveResultsKF```
+   
