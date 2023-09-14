@@ -2,7 +2,7 @@
 
 
 
-```General_analysis.py``` contains the functions necessary to run the analysis in the paper:
+**General_analysis.py** contains the functions necessary to run the analysis in the paper:
 - Functions for feature selection
    - ```Fselection```: for F-test based feature selection
    - ```HVGselection```: for highly variable gene feature selection performed with scanpy
