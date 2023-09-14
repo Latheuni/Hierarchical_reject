@@ -151,7 +151,10 @@ class HVGselection:
         return self
 
 
-########### ANALYSIS ###########
+########### ANALYSIS NO KFOLD ###########
+
+
+#### Hierarchcial
 def Run_H_NoKF(
     classifier, data, labels, parameters, n_jobsHCL, Norm=True, greedy_=False
 ):
@@ -247,7 +250,7 @@ def Run_H_NoKF_Sparse(
 
     return (Final_Classifier, Xtest, ytest, predicted, probs, Bestparam)
 
-
+#### Flat
 def Run_Flat_NoKF(classifier, data, labels, parameters, Norm=True):
     # Run without cross-validation to get one single metric at the end
     if Norm == True:
@@ -412,6 +415,9 @@ def Run_Flat_KF_sparse(
         )
 
 
+########### ANALYSIS KFOLD ###########
+
+#### Flat
 def Run_Flat_KF(
     classifier_,
     n_folds,
@@ -542,6 +548,7 @@ def Run_Flat_KF(
         )
 
 def Run_Flat_KF_sparse_splitted(
+    # Runs seperately per fold
     classifier_,
     n_folds,
     data,
@@ -776,6 +783,7 @@ def Run_Flat_KF_splitted(
             continue
         
 
+#### Hierarchical
 
 def Run_H_KF(
     classifier_,
@@ -1247,7 +1255,7 @@ def Run_H_KF_sparse(
             AllAccuracies,
         )
 
-
+##### FUNCTION TO SAVE THE RESULTS
 def SaveResultsKF(
     PredictedValues,
     ActualValues,
