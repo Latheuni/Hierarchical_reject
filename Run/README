@@ -9,5 +9,5 @@ General_analysis.py contains the functions necessary to run the analysis in the 
     - Run_Flat_NoKF: flat annotation (feature selection is not included)
   - with K-fold cross-validation
     - for flat annotation: 
-      - ```Run_Flat_KF```
+      - *Run_Flat_KF*
       - Run_Flat_KF_sparse, 
