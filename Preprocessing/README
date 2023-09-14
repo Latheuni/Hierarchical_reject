@@ -1,3 +1,4 @@
-This folder contains all the preprocessing steps that need to be performed before running the analysis. 
+This folder contains all the preprocessing steps that need to be performed before running the analyses. 
 
 Preprocessing_methods.py contains the preprocessing function for the AMB dataset together with the feature selection methods that can be used during annotation
+Preprocessing_Flatlas.py contains the preprocessing methods for the Flybody and Flyhead datasets
