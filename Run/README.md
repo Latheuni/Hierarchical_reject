@@ -23,3 +23,10 @@
 - Functions to save the results:
    - ```SaveResultsKF```
    
+**Functions_Accureacy_Reject.py** contains the functions needed to make obtain the results to make accuracy-reject curves.
+ - ```Evaluate_AR```: for hierarchical annotation
+ - ```Evaluate_AR_Flat```: for flat annotation
+ - ```Evaluate_AR_split```: for hierarchical annotation for one model outputted by one fold 
+ - ```Evaluate_AR_split_parallel```: for hierarchical annotation for one model outputted by one fold and parallelised
+
+An explicit example of how to use these functions can be found under the folder **Examples**
