@@ -19,12 +19,25 @@ from sklearn.model_selection import (
 )
 from sklearn.base import clone
 from hclf.multiclass import LCPN  # SHOULD BE MULTICLASS_NEW ON HPC!!
-from Scripts.Calibration_Functions import (
-    predict_proba_from_scores,
-)
 import scanpy as sc
 from anndata import AnnData
 
+########### Utility function ###########
+def predict_proba_from_scores(estimator, X):
+    # Based on the code thomas wrote
+    # get scores
+    scores = estimator.decision_function(X)
+    scores = np.exp(scores)
+    # check if we only have one score (ie, when K=2)
+    if len(scores.shape) == 2:
+        # softmax evaluation
+        scores = scores / np.sum(scores, axis=1).reshape(scores.shape[0], 1)
+    else:
+        # sigmoid evaluation
+        scores = 1 / (1 + np.exp(-scores))
+        scores = scores.reshape(-1, 1)
+        scores = np.hstack([1 - scores, scores])
+    return scores
 ########### Feature Selection ###########
 def F_test_sparse(X, y):
     unique_classes = np.unique(y)
