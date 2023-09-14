@@ -203,7 +203,7 @@ def Run_H_NoKF(
     return (Final_Classifier, Xtest, ytest, predicted, probs, Bestparam)
 
 
-def Run_H_NoKF_Sparse(
+def Run_H_NoKF_sparse(
     classifier, data, labels, parameters, n_jobsHCL, Norm=True, greedy_=False
 ):
     # Run without cross-validation to get one single metric at the end
@@ -291,7 +291,8 @@ def Run_Flat_NoKF(classifier, data, labels, parameters, Norm=True):
     print("accuracy fold", accuracyfold)
     return (Final_Classifier, Xtest, ytest, predicted)
 
-
+########### ANALYSIS KFOLD ###########
+#### Flat
 def Run_Flat_KF_sparse(
     classifier_,
     n_folds,
@@ -415,9 +416,7 @@ def Run_Flat_KF_sparse(
         )
 
 
-########### ANALYSIS KFOLD ###########
 
-#### Flat
 def Run_Flat_KF(
     classifier_,
     n_folds,
