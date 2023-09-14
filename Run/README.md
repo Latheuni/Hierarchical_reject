@@ -29,4 +29,6 @@
  - ```Evaluate_AR_split```: for hierarchical annotation for one model outputted by one fold 
  - ```Evaluate_AR_split_parallel```: for hierarchical annotation for one model outputted by one fold and parallelised
 
-An explicit example of how to use these functions can be found under the folder **Examples**
+An explicit example of how to use these functions can be found under the folder **Examples**. 
+
+The 'splitted' and 'parallel' versions of the functions exist as for some classifiers the analysis can take quite some time as they are not optimally parallelised which can lead to long runtimes especially on large datasets. So to run some analysis I made these specific versions of the functions. It is not always necessary to use them.
