@@ -1,7 +1,9 @@
 Preprocessing methods
 =====================
+.. include:: Preprocessing.README.md
+   :parser: myst_parser.sphinx_
 
-.. automodule:: Preprocessing.Preprocessing_AMB
+.. autofunction:: Preprocessing.Preprocessing_AMB
     :members: 
 
 .. automodule:: Preprocessing.Preprocessing_Azimuth
