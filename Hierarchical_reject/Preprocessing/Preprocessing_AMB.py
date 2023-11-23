@@ -9,6 +9,17 @@ from sklearn.preprocessing import StandardScaler
 
 
 def PreprocessingAMB(DataPath, LabelPath):
+    """Preprocessing function for the Allen Mouse Brain Dataset. 
+       Cell populations with less than 10 members are filtered out and the labels are converted to correct format for hierarchical classification.
+
+    Args:
+        DataPath (str): local path to dataset
+        LabelPath (str): local path to labels corresponding to the dataset
+
+    Returns:
+        data: pandas dataframe
+        Labels_newFormat: list
+    """
     Data = pd.read_csv(DataPath, index_col=0, sep=",")
     Labels = pd.read_csv(LabelPath, header=0, index_col=None, sep=",")
 

@@ -12,11 +12,22 @@ from scipy.sparse import csc_matrix, csr_matrix
 
 ## Functions Specific for PBMC
 def ReadIn_PBMC(h5file):
+    """Preprocessing function for the Azimuth PBMC dataset starting from the h5file.
+        Cell populations with less than 10 members are filtered out, the labels are converted to correct format for hierarchical classification; the hierarchy is implemented in the labels and the lavels are separated with ';'.
+
+
+    Args:
+        h5file (hdf5): path to the h5file of the AzimuthPBMC dataset.
+
+    Returns:
+        sparse_data: sparse matrix
+        labels: list
+    """
     f = h5py.File(h5file, "r")
     data = f["raw"]["X"]["data"][:]
     indices = f["raw"]["X"]["indices"][:]
     indptr = f["raw"]["X"]["indptr"][:]  # (or memory profiler package)
-    sparse_matrix = csr_matrix((data, indices, indptr), (161764, 20729))
+    sparse_data = csr_matrix((data, indices, indptr), (161764, 20729))
     celltypes_l1 = f["obs"]["celltype.l1"][:]
     celltypes_l2 = f["obs"]["celltype.l2"][:]
     celltypes_l3 = f["obs"]["celltype.l3"][:]
@@ -29,7 +40,7 @@ def ReadIn_PBMC(h5file):
         + level_3.decode("utf-8")
         for level_1, level_2, level_3 in zip(celltypes_l1, celltypes_l2, celltypes_l3)
     ]
-    return (sparse_matrix, labels)
+    return (sparse_data, labels)
 
 
 def filter_condition(f, condition, data, labels):
@@ -130,7 +141,8 @@ def Process_labels_PBMC(
     return labels, data
 
 
-def Preprocess_PBMC(data, labels):
+def Preprocess_Azimuth_PBMC(data, labels):
+
     freq_counts = pd.DataFrame(labels).value_counts()
     removed_classes = freq_counts.index.values[freq_counts < 10]  # numpy.ndarray
     rem_classes = [i[0] for i in removed_classes]
