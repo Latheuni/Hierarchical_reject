@@ -12,7 +12,7 @@ def PreprocessingCOVID(
         Local Path to Labels of COVID dataset
     DataPath : str
         Local Path to Labels of COVID dataset
-    filter_prolif : Boolean optional
+    filter_prolif : Boolean,optional
         Filter out the Proliferating cell state labels?. The default is True.
     filter_unspecified : Boolean, optional
         Filter out the undpecified labels?. The default is False.
@@ -20,7 +20,7 @@ def PreprocessingCOVID(
     Returns
     -------
     Data: filtered data dataframe
-    Labels: with in column 3 the input data for hclf
+    Labels: pandas dataframe, column 3 contains the input data for hclf
 
     """
     Labels = pd.read_csv(LabelPath, header=None, index_col=None, sep=",")

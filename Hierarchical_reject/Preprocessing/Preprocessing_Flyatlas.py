@@ -51,6 +51,13 @@ def convertLabels_Flycell_head(LabelPath, FBBT_dfPath):
     return(Labels)
 
 def Preprocessing_FlyCell_head(DataPath, LabelPath, FBBT_dfPath):
+    """_summary_
+
+    Args:
+        DataPath (_type_): _description_
+        LabelPath (_type_): _description_
+        FBBT_dfPath (_type_): _description_
+    """
     
     # Read in the count matrix
     SCopeLoomR = rpackages.importr('SCopeLoomR')
@@ -127,6 +134,13 @@ def convertLabels_Flycell_body(LabelPath, FBBT_dfPath):
     return(Labels)
 
 def Preprocessing_FlyCell_body(DataPath, LabelPath, FBBT_dfPath):
+    """_summary_
+
+    Args:
+        DataPath (_type_): _description_
+        LabelPath (_type_): _description_
+        FBBT_dfPath (_type_): _description_
+    """
     
     # Read in the count matrix
     SCopeLoomR = rpackages.importr('SCopeLoomR')
