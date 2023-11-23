@@ -1,12 +1,12 @@
 import pkg_resources
 
-version = pkg_resources.get_distribution("h5torch").version
-release = version
+# version = pkg_resources.get_distribution("h5torch").version
+# release = version
 
 import os
 import sys
 
-sys.path.insert(0, os.path.abspath("../h5torch/"))
+# sys.path.insert(0, os.path.abspath("../h5torch/"))
 
 # Configuration file for the Sphinx documentation builder.
 #
@@ -16,9 +16,9 @@ sys.path.insert(0, os.path.abspath("../h5torch/"))
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = "h5torch"
-copyright = "2023, Gaetan De Waele"
-author = "Gaetan De Waele"
+project = "Hierarchical__reject"
+copyright = "2023, Lauren Theunissen"
+author = "Lauren Theunissen"
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
