@@ -15,7 +15,7 @@ h5torch documentation
    :maxdepth: 2
    :caption: Contents:
 
-   #Tutorial <tutorial>
+
    API Reference Preprocessing <Preprocessing>
 
 
