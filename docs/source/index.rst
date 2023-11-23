@@ -11,12 +11,18 @@ h5torch documentation
 .. include:: ../../README.md
    :parser: myst_parser.sphinx_
 
+Tutorial
+========
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+   :maxdepth: 1
+   
+   Tutorial 
+API 
+====
+.. toctree::
+   :maxdepth: 3
 
-
-   API Reference Preprocessing <Preprocessing>
+   Preprocessing <Preprocessing>
 
 
 ..
