@@ -1,4 +1,4 @@
 Preprocessing methods
 =====================
 
-.. autofunction::
+.. autofunction:: Hierarchical_reject.Preprocessing.Preprocessing_AMB  # Change to autofunction
