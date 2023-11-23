@@ -4,3 +4,11 @@ ipykernel
 myst-parser
 sphinx>=6.1
 sphinx-rtd-theme
+numpy 
+pandas 
+scanpy 
+anndata
+scikit-learn
+scipy
+time
+h5py
