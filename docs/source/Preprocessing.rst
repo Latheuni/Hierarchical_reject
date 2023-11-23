@@ -3,6 +3,8 @@ Preprocessing methods
 .. automodule:: Hierarchical_reject.Preprocessing.Preprocessing_AMB
     :func: PreprocessingAMB
 
+.. automodule:: Hierarchical_reject.Preprocessing.Preprocessing_AMB
+    :members:
 .. .. autofunction:: Hierarchical_reject.Preprocessing.Preprocessing_AMB.PreprocessingAMB  # Change to autofunction
 ..     :annotation:
 
