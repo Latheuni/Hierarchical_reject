@@ -1,1 +1,4 @@
+Preprocessing methods
+=====================
 
+.. autofunction::
