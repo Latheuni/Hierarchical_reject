@@ -1,7 +1,7 @@
 Preprocessing methods
 =====================
 
-.. automodule:: Hierarchical_reject.Preprocessing.Preprocessing_AMB
+.. automodule:: Preprocessing.Preprocessing_AMB
     :members: 
 
 .. automodule:: Hierarchical_reject.Preprocessing.Preprocessing_Azimuth
