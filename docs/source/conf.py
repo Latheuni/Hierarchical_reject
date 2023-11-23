@@ -1,12 +1,6 @@
-import pkg_resources
-
-# version = pkg_resources.get_distribution("h5torch").version
-# release = version
-
 import os
 import sys
 
-# sys.path.insert(0, os.path.abspath("../h5torch/"))
 
 # Configuration file for the Sphinx documentation builder.
 #
