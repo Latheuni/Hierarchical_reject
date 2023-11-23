@@ -3,10 +3,10 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-h5torch documentation
-===================================
+Hierarchical reject documentation
+=====================
 
-`GitHub page <https://github.com/gdewael/h5torch>`_
+`GitHub page <https://github.com/Latheuni/Hierarchical_Reject>`_
 
 .. include:: ../../README.md
    :parser: myst_parser.sphinx_
@@ -17,6 +17,7 @@ Tutorial
    :maxdepth: 1
    
    Tutorial 
+
 API 
 ====
 .. toctree::
