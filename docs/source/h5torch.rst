@@ -1,12 +1,6 @@
-h5torch package
+Preprocessing
 ===============
 
-.. autoclass:: h5torch.file.File     # Change to autofunction
-   :members: register, append
+.. autofunction:: Hierarchical_reject.Preprocessing.Preprocessing_AMB  # Change to autofunction
 
-.. autoclass:: h5torch.dataset.Dataset     
-   :members:
-
-.. autoclass:: h5torch.dataset.SliceDataset     
-   :members: 
 
