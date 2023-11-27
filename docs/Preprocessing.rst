@@ -2,7 +2,7 @@ Preprocessing methods
 =====================
 
 
-.. include:: Preprocessing.README
+.. include:: Hierarchical_reject.Preprocessing.README
    :parser: myst_parser.sphinx_
 
 .. automodule:: Preprocessing.Preprocessing_AMB

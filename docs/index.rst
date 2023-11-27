@@ -3,7 +3,7 @@ Hierarchical reject documentation
 
 `GitHub page <https://github.com/Latheuni/Hierarchical_reject>'
 
-.. include:: README.md
+.. include:: Hierarchical_reject.README.md
    :parser: myst_parser.sphinx_
 
 Tutorial
