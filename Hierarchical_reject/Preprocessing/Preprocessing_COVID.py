@@ -11,18 +11,18 @@ def Preprocessing_COVID(
     Parameters
     ----------
     LabelPath : str
-        Local path to labels of COVID dataset
+        Local path to the labels of COVID dataset (csv file)
     DataPath : str
-        Local path to the COVID dataset
-    filter_prolif : Boolean,optional
+        Local path to the COVID dataset (csv file)
+    filter_prolif : Boolean, optional
         Filter out the proliferating cell state labels. The default is True.
     filter_unspecified : Boolean, optional
         Filter out the unspecified labels. The default is False.
 
     Returns
     -------
-    Data: Filtered pandas dataframe
-    Labels: Pandas dataframe (column 3 contains the input data for hierarchical classification)
+    Data: pandas dataframe
+    Labels: pandas dataframe (column 3 contains the input labels for hierarchical classification)
 
     """
     Labels = pd.read_csv(LabelPath, header=None, index_col=None, sep=",")

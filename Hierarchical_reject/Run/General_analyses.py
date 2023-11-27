@@ -172,17 +172,17 @@ class HVGselection:
 def Run_H_NoKF(
     classifier, data, labels, parameters, n_jobsHCL, Norm=True, greedy_=False
 ):
-    """Function to run hierarchical classification without K-fold cross validation with a dense data matrix.
+    """Function to run hierarchical classification without K-fold cross validation with a dense data matrix
 
     Parameters
     ----------
     classifier : scikit-learn classifier
     data : dense matrix
     labels : list
-    parameters : Dict of str to sequence, or sequence of such
-        Hyperparameters to be evaluated, for more information on the correct input format of this parameter check ParameterGridd by scikit-learn
+    parameters : dict of str to sequence, or sequence of such
+        Hyperparameters to be evaluated (for more information on the correct input format of this parameter check ParameterGrid by scikit-learn)
     n_jobsHCL : int
-        number of CPU cores used for parallelization of the hierarchical classification
+        Number of CPU cores used for parallelization of the hierarchical classification
     Norm : bool, optional
         Perform log(1+x) normalisation before running the analysis, by default True
     greedy_ : bool, optional
@@ -190,18 +190,12 @@ def Run_H_NoKF(
 
     Returns
     -------
-    Final Classifier
-        scikit-learn classifier
-    Xtest
-        matrix
-    yests
-        list of lists
-    predicted
-        list
-    probs
-        (dense) numpy matrix
-    Bestparam
-        list
+    Final Classifier: scikit-learn classifier
+    Xtest: pandas dataframe
+    yests: list of lists
+    predicted: list
+    probs: matrix
+    Bestparam: list
     """
     # Run without cross-validation to get one single metric at the end
     if Norm == True:
@@ -251,6 +245,31 @@ def Run_H_NoKF(
 def Run_H_NoKF_sparse(
     classifier, data, labels, parameters, n_jobsHCL, Norm=True, greedy_=False
 ):
+    """Function to run hierarchical classification without K-fold cross validation with a sparse data matrix
+
+    Parameters
+    ----------
+    classifier : scikit-learn classifier
+    data : sparse matrix
+    labels : list
+    parameters : dict of str to sequence, or sequence of such
+        Hyperparameters to be evaluated (for more information on the correct input format of this parameter check ParameterGridd by scikit-learn)
+    n_jobsHCL : int
+        Number of CPU cores used for parallelization of the hierarchical classification
+    Norm : bool, optional
+        Perform log(1+x) normalisation before running the analysis, by default True
+    greedy_ : bool, optional
+        Perform greedy (True) or non-greedy (False) hierarchical classification, by default False
+
+    Returns
+    -------
+    Final Classifier: scikit-learn classifier
+    Xtest: sparse matrix
+    yests: list of lists
+    predicted: list
+    probs: matrix
+    Bestparam: list
+    """
     # Run without cross-validation to get one single metric at the end
     if Norm == True:
         data = np.log1p(data)  # log(1+x)
@@ -297,6 +316,25 @@ def Run_H_NoKF_sparse(
 
 #### Flat
 def Run_Flat_NoKF(classifier, data, labels, parameters, Norm=True):
+    """Function to run flat classification without K-fold cross validation
+
+    Parameters
+    ----------
+    classifier : scikit-learn classifier
+    data : pandas dataframe
+    labels : list
+    parameters : dict of str to sequence, or sequence of such
+        Hyperparameters to be evaluated (for more information on the correct input format of this parameter check ParameterGridd by scikit-learn)
+    Norm : bool, optional
+        Perform log(1+x) normalisation before running the analysis, by default True
+
+    Returns
+    -------
+    Final Classifier: scikit-learn classifier
+    Xtest: matrix
+    yests: list of lists
+    predicted: list
+    """
     # Run without cross-validation to get one single metric at the end
     if Norm == True:
         data = np.log1p(data)  # log(1+x)
@@ -350,6 +388,39 @@ def Run_Flat_KF_sparse(
     save_clf=False,
     metric="accuracy_score",
 ):
+    """Function to run flat classification with K-fold cross validation and a sparse data matrix.
+
+    Parameters
+    ----------
+    classifier_ : scikit-learn classifier
+    n_folds : int
+        number of folds, must be at least 2
+    data : sparse matrix
+    labels : list
+    parameters : dict of str to sequence, or sequence of such
+        Hyperparameters to be evaluated (for more information on the correct input format of this parameter check ParameterGridd by scikit-learn)
+    Norm : bool, optional
+        Perform log(1+x) normalisation before running the analysis, by default True
+    HVG : bool, optional
+        If true, perform highly variable feature selection, number of selected features ('top_genes') is a hyperparameter that should be incorporated in parameters, by default False
+    F_test : bool, optional
+        If True, perform feature selection base don the F-test, the number of selected features ('n_features')is a hyperparameter that should be incorporated in parameters, by default False
+    save_clf : bool, optional
+        If True, outputs the trained classifiers per fold together with the train-test splits, by default False
+    metric : str, optional
+        Use 'accuracy score' or 'log_loss' for test and train evaluation, by default "accuracy_score"
+
+    Returns
+    -------
+    AllPredictedValues: list of lists
+    AllProbabilities: list of matrices
+    AllActualValues: list of lists
+    AccuraciesFolds: list 
+    Bestparams: list
+    Classifiers: list of classifiers (optional)
+    Xtests: list of matrices (optional)
+    ytests: list of matrices (optional)
+    """
     classifier_base = clone(classifier_)
     if Norm == True:
         data = np.log1p(data)  # log(1+x)
@@ -372,7 +443,6 @@ def Run_Flat_KF_sparse(
 
     Bestparams = []
     AccuraciesFolds = []
-    AllAccuracies = []
     AllPredictedValues = []
     AllProbabilities = []
     AllActualValues = []
@@ -446,7 +516,6 @@ def Run_Flat_KF_sparse(
             AllActualValues,
             AccuraciesFolds,
             Bestparams,
-            AllAccuracies,
             Classifiers,
             Xtests,
             ytests,
@@ -457,7 +526,6 @@ def Run_Flat_KF_sparse(
             AllActualValues,
             AccuraciesFolds,
             Bestparams,
-            AllAccuracies,
         )
 
 
@@ -474,6 +542,39 @@ def Run_Flat_KF(
     save_clf=False,
     metric="accuracy_score",
 ):
+    """Function to run flat classification with K-fold cross validation and a dense data matrix.
+
+    Parameters
+    ----------
+    classifier_ : scikit-learn classifier
+    n_folds : int
+        number of folds, must be at least 2
+    data : dense matrix
+    labels : list
+    parameters : dict of str to sequence, or sequence of such
+        Hyperparameters to be evaluated (for more information on the correct input format of this parameter check ParameterGridd by scikit-learn)
+    Norm : bool, optional
+        Perform log(1+x) normalisation before running the analysis, by default True
+    HVG : bool, optional
+        If true, perform highly variable feature selection, number of selected features ('top_genes') is a hyperparameter that should be incorporated in parameters, by default False
+    F_test : bool, optional
+        If True, perform feature selection base don the F-test, the number of selected features ('n_features')is a hyperparameter that should be incorporated in parameters, by default False
+    save_clf : bool, optional
+        If True, outputs the trained classifiers per fold together with the train-test splits, by default False
+    metric : str, optional
+        Use 'accuracy score' or 'log_loss' for test and train evaluation, by default "accuracy_score"
+
+    Returns
+    -------
+    AllPredictedValues: list of lists
+    AllProbabilities: list of matrices
+    AllActualValues: list of lists
+    AccuraciesFolds: list 
+    Bestparams: list
+    Classifiers: list of classifiers (optional)
+    Xtests: list of matrices (optional)
+    ytests: list of matrices (optional)
+    """
     classifier_base = clone(classifier_)
     if Norm == True:
         data = np.log1p(data)  # log(1+x)
@@ -496,7 +597,6 @@ def Run_Flat_KF(
 
     Bestparams = []
     AccuraciesFolds = []
-    AllAccuracies = []
     AllPredictedValues = []
     AllProbabilities = []
     AllActualValues = []
@@ -577,7 +677,6 @@ def Run_Flat_KF(
             AllActualValues,
             AccuraciesFolds,
             Bestparams,
-            AllAccuracies,
             Classifiers,
             Xtests,
             ytests,
@@ -588,7 +687,6 @@ def Run_Flat_KF(
             AllActualValues,
             AccuraciesFolds,
             Bestparams,
-            AllAccuracies,
         )
 
 def Run_Flat_KF_sparse_splitted(
@@ -605,6 +703,43 @@ def Run_Flat_KF_sparse_splitted(
     save_clf=False,
     metric="accuracy_score",
 ):
+    """Function to run flat classification with for one K-fold cross validation fold on a sparse data matrix.
+
+
+    Parameters
+    ----------
+    classifier_ : scikit-learn classifier
+    n_folds : int
+        number of folds, must be at least 2
+    data : sparse matrix
+    labels : list
+    parameters : dict of str to sequence, or sequence of such
+        Hyperparameters to be evaluated (for more information on the correct input format of this parameter check ParameterGridd by scikit-learn)
+    fold : int
+        Specific fold that is currently considered
+    Norm : bool, optional
+        Perform log(1+x) normalisation before running the analysis, by default True
+    HVG : bool, optional
+        If true, perform highly variable feature selection, number of selected features ('top_genes') is a hyperparameter that should be incorporated in parameters, by default False
+    F_test : bool, optional
+        If True, perform feature selection base don the F-test, the number of selected features ('n_features')is a hyperparameter that should be incorporated in parameters, by default False
+    save_clf : bool, optional
+        If True, outputs the trained classifiers per fold together with the train-test splits, by default False
+    metric : str, optional
+        Use 'accuracy score' or 'log_loss' for test and train evaluation, by default "accuracy_score"
+
+
+    Returns
+    -------
+    predicted: list
+    prob: matrix
+    y_test; list
+    accuracy_fold: float
+    Bestparams: list
+    acc: list
+    Final_classifier: trained classifier (optional)
+
+    """
     classifier_base = clone(classifier_)
     if Norm == True:
         data = np.log1p(data)  # log(1+x)
@@ -690,8 +825,6 @@ def Run_Flat_KF_sparse_splitted(
                     Bestparams,
                     acc,
                     Final_Classifier,
-                    X_test,
-                    y_test,
                 )
             
             else:
@@ -721,6 +854,41 @@ def Run_Flat_KF_splitted(
     save_clf=False,
     metric="accuracy_score",
 ):
+    """Function to run flat classification with for one K-fold cross validation fold on a dense data matrix
+
+    Parameters
+    ----------
+    classifier_ : scikit-learn classifier
+    n_folds : int
+        number of folds, must be at least 2
+    data : pandas dataframe
+    labels : list
+    parameters : dict of str to sequence, or sequence of such
+        Hyperparameters to be evaluated (for more information on the correct input format of this parameter check ParameterGridd by scikit-learn)
+    fold : int
+        Specific fold that is currently considered
+    Norm : bool, optional
+        Perform log(1+x) normalisation before running the analysis, by default True
+    HVG : bool, optional
+        If true, perform highly variable feature selection, number of selected features ('top_genes') is a hyperparameter that should be incorporated in parameters, by default False
+    F_test : bool, optional
+        If True, perform feature selection base don the F-test, the number of selected features ('n_features')is a hyperparameter that should be incorporated in parameters, by default False
+    save_clf : bool, optional
+        If True, outputs the trained classifiers per fold together with the train-test splits, by default False
+    metric : str, optional
+        Use 'accuracy score' or 'log_loss' for test and train evaluation, by default "accuracy_score"
+
+
+    Returns
+    -------
+    predicted: list
+    prob: matrix
+    y_test; list
+    accuracy_fold: float
+    Bestparams: list
+    acc: list
+    Final_classifier: trained classifier (optional)
+    """
     classifier_base = clone(classifier_)
     if Norm == True:
         data = np.log1p(data)  # log(1+x)
@@ -811,8 +979,6 @@ def Run_Flat_KF_splitted(
                     Bestparams,
                     acc,
                     Final_Classifier,
-                    X_test,
-                    y_test,
                 )
             else:
                 return (
@@ -844,6 +1010,45 @@ def Run_H_KF(
     save_clf=False,
     metric="accuracy_score",
 ):
+    """Function to run hierarchical classification with K-fold cross validation and a dense data matrix.
+
+    Parameters
+    ----------
+    classifier_ : scikit-learn classifier
+    n_folds : int
+        number of folds, must be at least 2
+    data : dense matrix
+    labels : list
+    parameters : dict of str to sequence, or sequence of such
+        Hyperparameters to be evaluated (for more information on the correct input format of this parameter check ParameterGridd by scikit-learn)
+    n_jobsHCL : int
+        Number of CPU cores used for parallelization of the hierarchical classification
+    reject_thresh : float or None (str)
+        if not None, annotation will stop if the porobability of a label will drop below the float
+    greedy_ : bool, optional
+         Perform greedy (True) or non-greedy (False) hierarchical classification, by default False
+        Hyperparameters to be evaluated (for more information on the correct input format of this parameter check ParameterGridd by scikit-learn)
+    Norm : bool, optional
+        Perform log(1+x) normalisation before running the analysis, by default True
+    HVG : bool, optional
+        If true, perform highly variable feature selection, number of selected features ('top_genes') is a hyperparameter that should be incorporated in parameters, by default False
+    F_test : bool, optional
+        If True, perform feature selection base don the F-test, the number of selected features ('n_features')is a hyperparameter that should be incorporated in parameters, by default False
+    save_clf : bool, optional
+        If True, outputs the trained classifiers per fold together with the train-test splits, by default False
+    metric : str, optional
+        Use 'accuracy score' or 'log_loss' for test and train evaluation, by default "accuracy_score"
+    Returns
+    -------
+    AllPredictedValues: list of lists
+    AllProbabilities: list of matrices
+    AllActualValues: list of lists
+    AccuraciesFolds: list 
+    Bestparams: list
+    Classifiers: list of classifiers (optional)
+    Xtests: list of matrices (optional)
+    ytests: list of matrices (optional)
+    """
     if Norm == True:
         data = np.log1p(data)  # log(1+x)
 
@@ -851,7 +1056,6 @@ def Run_H_KF(
 
     Bestparams = []
     AccuraciesFolds = []
-    AllAccuracies = []
     AllPredictedValues = []
     AllActualValues = []
     Classifiers = []
@@ -1047,7 +1251,6 @@ def Run_H_KF(
             AllActualValues,
             AccuraciesFolds,
             Bestparams,
-            AllAccuracies,
             Classifiers,
             Xtests,
             ytests,
@@ -1058,7 +1261,7 @@ def Run_H_KF(
             AllActualValues,
             AccuraciesFolds,
             Bestparams,
-            AllAccuracies,
+
         )
 
 
@@ -1077,6 +1280,45 @@ def Run_H_KF_sparse(
     save_clf=False,
     metric="accuracy_score",
 ):
+    """Function to run hierarchical classification with K-fold cross validation and a sparse data matrix.
+
+    Parameters
+    ----------
+    classifier_ : scikit-learn classifier
+    n_folds : int
+        number of folds, must be at least 2
+    data : sparse matrix
+    labels : list
+    parameters : dict of str to sequence, or sequence of such
+        Hyperparameters to be evaluated (for more information on the correct input format of this parameter check ParameterGridd by scikit-learn)
+    n_jobsHCL : int
+        Number of CPU cores used for parallelization of the hierarchical classification
+    reject_thresh : float or None (str)
+        if not None, annotation will stop if the porobability of a label will drop below the float
+    greedy_ : bool, optional
+         Perform greedy (True) or non-greedy (False) hierarchical classification, by default False
+        Hyperparameters to be evaluated (for more information on the correct input format of this parameter check ParameterGridd by scikit-learn)
+    Norm : bool, optional
+        Perform log(1+x) normalisation before running the analysis, by default True
+    HVG : bool, optional
+        If true, perform highly variable feature selection, number of selected features ('top_genes') is a hyperparameter that should be incorporated in parameters, by default False
+    F_test : bool, optional
+        If True, perform feature selection base don the F-test, the number of selected features ('n_features')is a hyperparameter that should be incorporated in parameters, by default False
+    save_clf : bool, optional
+        If True, outputs the trained classifiers per fold together with the train-test splits, by default False
+    metric : str, optional
+        Use 'accuracy score' or 'log_loss' for test and train evaluation, by default "accuracy_score"
+    Returns
+    -------
+    AllPredictedValues: list of lists
+    AllProbabilities: list of matrices
+    AllActualValues: list of lists
+    AccuraciesFolds: list 
+    Bestparams: list
+    Classifiers: list of classifiers (optional)
+    Xtests: list of matrices (optional)
+    ytests: list of matrices (optional)
+    """
     if Norm == True:
         data = np.log1p(data)  # log(1+x)
 
@@ -1309,6 +1551,26 @@ def SaveResultsKF(
     directory,
     namespecific,
 ):
+    """Function to save K-Fold cross-validation results
+
+    Parameters
+    ----------
+    PredictedValues : list of lists
+    ActualValues : list of lists
+    AccuraciesFolds : list
+    overall_best_params : list
+    directory : str
+        Directory where you want to save it
+    namespecific : str
+        Name of the analysis
+        
+    Return
+    ------
+    namespecific_Other.csv
+        COntains accuraies and best parameters per fold
+    namespecific_ActualValueslist.csv
+    namespecific_Preslist.csv
+    """
     os.chdir(directory)
 
     AllAccuracies.insert(0, "These are all the accuracies over the parameters per fold")
@@ -1317,7 +1579,6 @@ def SaveResultsKF(
         write = csv.writer(f1)
         write.writerow(AccuraciesFolds)
         write.writerow(overall_best_params)
-        write.writerow(AllAccuracies)
     f1.close()
 
     flatListAllActual = [item for elem in ActualValues for item in elem]

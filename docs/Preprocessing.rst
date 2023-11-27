@@ -14,10 +14,7 @@ Preprocessing methods
 .. automodule:: Preprocessing.Preprocessing_COVID
     :members: Preprocessing_COVID
 
+*Small note*: I disabled the rpy2 imports in the Preprocessing_Flyatlas file because of readthedocs inability to handle R dependencies. These should be uncommented when running the functions!b: 
 .. automodule:: Preprocessing.Preprocessing_Flyatlas
     :members: Preprocessing_Flyatlas_body, Preprocessing_Flyatlas_head
 
-.. automodule:: Preprocessing.Preprocessing_Flyatlas
-    :members: Preprocessing_Flyatlas_head
-
-Small note: I disabled the rpy2 imports in the Preprocessing_Flyatlas file because of readthedocs inability to handle R dependencies. These should be uncommented when running the functions!b: 

@@ -15,14 +15,14 @@ def Preprocessing_AMB(DataPath, LabelPath):
     Parameters
     ----------
     DataPath : str
-        Local path to the COVID dataset
+        Local path to the AMB dataset (csv file)
     LabelPath : str
-        Local path to labels of COVID dataset
+        Local path to the labels of AMB dataset (csv file)
 
     Returns
     -------
-    Data: Pandas dataframe
-    Labels: List
+    Data: pandas dataframe
+    Labels: list
     """
     Data_init = pd.read_csv(DataPath, index_col=0, sep=",")
     Labels_init = pd.read_csv(LabelPath, header=0, index_col=None, sep=",")

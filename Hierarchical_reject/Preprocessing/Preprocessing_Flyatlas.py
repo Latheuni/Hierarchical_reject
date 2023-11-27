@@ -51,23 +51,22 @@ def convertLabels_Flycell_head(LabelPath, FBBT_dfPath):
     return(Labels)
 
 def Preprocessing_Flyatlas_head(DataPath, LabelPath, FBBT_dfPath):
-    """Preprocessing function for the Flyhead dataset. The hierarchical information is formatted and cell populations with less than members are discarded.
+    """Preprocessing function for the Flyhead dataset. 
+    The hierarchical information is formatted and cell populations with less than 10 members are discarded.
 
     Parameters
     ----------
-    DataPath : Loom file
-        Local path to the Flyhead dataset
-    LabelPath : csv file
-        Local path to the labels of the Flyhead dataset
-    FBBT_dfPath : csb path
-        Local path to the FBbt ontology terms linked to the labels of the Flyhead dataset
+    DataPath : str
+        Local path to the Flyhead dataset (loom file)
+    LabelPath : str
+        Local path to the labels of the Flyhead dataset (csv file)
+    FBBT_dfPath : str
+        Local path to the FBbt ontology terms linked to the labels of the Flyhead dataset (csv file)
     
     Returns
     -------
-    Data
-        Pandas dataframe
-    Labels
-        List
+    Data: pandas dataframe
+    Labels: list
     """
     # Read in the count matrix
     SCopeLoomR = rpackages.importr('SCopeLoomR')
@@ -141,23 +140,23 @@ def convertLabels_Flycell_body(LabelPath, FBBT_dfPath):
     return(Labels)
 
 def Preprocessing_Flyatlas_body(DataPath, LabelPath, FBBT_dfPath):
-    """Preprocessing function for the Flybody dataset. The hierarchical information is formatted and cell populations with less than members are discarded.
+    """Preprocessing function for the Flybody dataset. 
+    
+    The hierarchical information is formatted and cell populations with less than 10 members are discarded.
 
     Parameters
     ----------
-    DataPath : Loom file
-        Local path to the Flybody dataset
-    LabelPath : csv file
-        Local path to the labels of the Flybody dataset
-    FBBT_dfPath : csb path
-        Local path to the FBbt ontology terms linked to the labels of the Flybody dataset
+    DataPath : str
+        Local path to the Flybody dataset (loom file)
+    LabelPath : str
+        Local path to the labels of the Flybody dataset (csv file)
+    FBBT_dfPath : str
+        Local path to the FBbt ontology terms linked to the labels of the Flybody dataset (csv file)
     
     Returns
     -------
-    Data
-        Pandas dataframe
-    Labels
-        List
+    Data: pandas dataframe
+    Labels: list
     """
     
     # Read in the count matrix

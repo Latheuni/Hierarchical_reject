@@ -172,10 +172,8 @@ def Preprocess_filter_Azimuth_PBMC(data, labels):
 
     Returns
     -------
-    data
-        Sparse matrix
-    labels
-        List
+    data: sparse matrix
+    labels: list
     """
     freq_counts = pd.DataFrame(labels).value_counts()
     removed_classes = freq_counts.index.values[freq_counts < 10]  # numpy.ndarray
@@ -187,19 +185,18 @@ def Preprocess_filter_Azimuth_PBMC(data, labels):
 
 
 def Preprocessing_Azimuth_PBMC(h5file):
-    """Preprocessing function for the Azimuth PBMC dataset. The hierarchical information in the labels is completed and formatted for hierarchical classification. The intermediate and unspecified labels are removed and the cell populations with less than 10 members are discarded.
+    """Preprocessing function for the Azimuth PBMC dataset. 
+       The hierarchical information in the labels is completed and formatted for hierarchical classification. The intermediate and unspecified labels are removed and the cell populations with less than 10 members are discarded.
 
     Parameters
     ----------
-    h5file : hd5f 
-        Local path to Azimuth PBMC dataset
+    h5file : str 
+        Local path to Azimuth PBMC dataset (hdf5 file)
         
     Returns
     ------
-    Data
-        Sparse matrix
-    Labels
-        List
+    Data: sparse matrix
+    Labels: list
     """
     # Read in the data
     data_init, labels_init = ReadIn_PBMC(h5file)
