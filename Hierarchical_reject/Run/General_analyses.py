@@ -102,7 +102,7 @@ def F_test(X, y):
 
 
 class Fselection:
-    """Perform feature selection based on the F test. Be careful, the data needs to be normalized before feature selection based in the F-test can be applied.
+    """Perform feature selection based on the F test. Be careful, the data needs to be normalized before feature selection based on the F-test can be applied.
     """
 
     def __init__(self, n_features=10):

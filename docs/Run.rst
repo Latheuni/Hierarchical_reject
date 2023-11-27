@@ -1,4 +1,4 @@
-To run the analyses:
+Functions to run the analyses:
 ====================
 
 .. include:: Run.README.md
@@ -18,13 +18,15 @@ No K-fold cross-validation
     :members: Run_H_NoKF, Run_H_NoKF_sparse, Run_Flat_NoKF
 
 With K-fold cross-validation
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Flat analyses:
+Flat analyses
+^^^^^^^^^^^^
 .. automodule:: Run.General_analyses
     :members: Run_Flat_KF_sparse, Run_Flat_KF, Run_FLat_KF_sparse_splitted, Run_Flat_KF_splitted
 
-Hierarchical analyses
+Hierarchical analyses^
+^^^^^^^^^^^^^^^^^^^^^
 .. automodule:: Run.General_analyses
     :members: Run_H_KF, Run_H_KF_sparse
 

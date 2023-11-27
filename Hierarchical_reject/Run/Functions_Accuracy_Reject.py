@@ -587,11 +587,34 @@ def Accuracy_Rejection_Parallel(
 
 # Evaluation functions
 def Evaluate_AR_Flat(clf_list, Xtests, ytests, predictions, probabilities, b, scores):
+    """Function to generate datapoints for accuracy-rejection curves with flat classification. 
+    The rejection threshold is varied with a stepsize of 0.01
+
+    Parameters
+    ----------
+    clf_list : list of (trained) classifiers
+    Xtests : list of matrices
+        Contains the test data per fold
+    ytests : list of lists
+        Contains the actual labels of the test data per fold
+    predictions : list of lists
+        Contains the predictions per fold
+    probabilities : list of matrices
+        Contains the probabilities of the predictions per fold over all the classes
+    b : boolean
+        Is the hierarchy balanced?
+    scores : boolean
+        Does the trained scikit-learn classifier output scores or probabilities (with predict_proba)
+
+    Returns
+    -------
+    results: dictionary
+        Per fold the following metrics are saved in a dictionary with key 'Try fold_number': the accuracies (acc) and rejection percentage (perc:) for every rejection threshold, the rejection thresholds themselves (steps), 
+        the actual values (ytest), the predictions (preds), the probabilities (probs) and the lengths of the predictions (lp) and actual values (lt) per rejection threshold
+    """
     results = {}
     for i in range(0, len(clf_list)):
         p = clf_list[i].predict(Xtests[i])
-        print('accyracy test', accuracy_score(ytests[i], p))
-        print('starting accuracy', accuracy_score(ytests[i], predictions[i]))
         acc, perc, lp, lt, steps = Accuracy_Rejection_flat(
             clf_list[i], Xtests[i], ytests[i], predictions[i], probabilities[i], balanced=b, scores_=scores
         )
@@ -601,7 +624,7 @@ def Evaluate_AR_Flat(clf_list, Xtests, ytests, predictions, probabilities, b, sc
             "steps": steps,
             "ytest": ytests[i],
             "preds": predictions[i],
-            "perc:": perc,
+            "perc": perc,
             "length pred": lp,
             "length ytrue": lt,
             "probs": probabilities[i],
@@ -609,13 +632,34 @@ def Evaluate_AR_Flat(clf_list, Xtests, ytests, predictions, probabilities, b, sc
     return results
 
 
-def Evaluate_AR(clf_list, Xtests, ytests, predictions):
+def Evaluate_AR(clf_list, Xtests, ytests, predictions, greedy=True):
+    """Function to generate datapoints for accuracy-rejection curves with hierarchical classification. 
+    The rejection threshold is varied with a stepsize of 0.01
+
+    Parameters
+    ----------
+    clf_list : list of (trained) classifiers
+    Xtests : list of matrices
+        Contains the test data per fold
+    ytests : list of lists
+        Contains the actual labels of the test data per fold
+    predictions : list of lists
+        Contains the predictions per fold
+    greedy : boolean, optional
+        Perform greedy (True) or non-greedy (False) hierarchical classification, by default True
+
+    Returns
+    -------
+    results: dictionary
+        Per fold the following metrics are saved in a dictionary with key 'Try fold_number': the accuracies (acc) and rejection percentage (perc:) for every rejection threshold, the rejection thresholds themselves (steps), 
+        the actual values (ytest), the predictions (preds), the probabilities (probs) and the lengths of the predictions (lp) and actual values (lt) per rejection threshold
+    """
     results = {}
     for i in range(0, len(clf_list)):
         print('starting accuracy', accuracy_score(ytests[i], predictions[i]))
         p, probs = clf_list[i].predict(Xtests[i])
         print('accyracy test', accuracy_score(ytests[i], p))
-        acc, perc, lp, lt, steps = Accuracy_Rejection(clf_list[i], Xtests[i], ytests[i])
+        acc, perc, lp, lt, steps = Accuracy_Rejection(clf_list[i], Xtests[i], ytests[i], greedy_ = greedy)
         print(acc)
         results["Try " + str(i + 1)] = {
             "acc": acc,
@@ -629,11 +673,33 @@ def Evaluate_AR(clf_list, Xtests, ytests, predictions):
         }
     return results
 
-
 from joblib import Parallel, delayed
 
+def Evaluate_AR_parallel(clf_list, Xtests, ytests, predictions, all_jobs, greedy):
+    """Function to generate datapoints for accuracy-rejection curves with hierarchical classification in a parallel manner. 
+    The rejection threshold is varied with a stepsize of 0.01
 
-def Evaluate_AR_split_parallel(clf_list, Xtests, ytests, predictions, all_jobs, greedy):
+    Parameters
+    ----------
+    clf_list : list of (trained) classifiers
+    Xtests : list of matrices
+        Contains the test data per fold
+    ytests : list of lists
+        Contains the actual labels of the test data per fold
+    predictions : list of lists
+        Contains the predictions per fold
+    all_jobs : int
+        number of CPU cores to parallelize the calculations over
+    greedy : boolean, optional
+        Perform greedy (True) or non-greedy (False) hierarchical classification, by default True
+
+
+    Returns
+    -------
+    results: dictionary
+        Per fold the following metrics are saved in a dictionary with key 'Try fold_number': the accuracies (acc) and rejection percentage (perc:) for every rejection threshold, the rejection thresholds themselves (steps), 
+        the actual values (ytest), the predictions (preds), the probabilities (probs) and the lengths of the predictions (lp) and actual values (lt) per rejection threshold
+    """
     results = {}
     for i in range(0, len(clf_list)):
         print('starting accuracy', accuracy_score(ytests[i], predictions[i]))
@@ -653,21 +719,3 @@ def Evaluate_AR_split_parallel(clf_list, Xtests, ytests, predictions, all_jobs, 
         }
     return results
 
-
-    
-
-def Evaluate_AR_split(clf, Xtest, ytest, predictions):
-    results = {}
-
-    acc, perc, lp, lt, steps = Accuracy_Rejection(clf, Xtest, ytest)
-    print(acc)
-    results["Try "] = {
-        "acc": acc,
-        "steps": steps,
-        "ytest": ytest,
-        "preds": predictions,
-        "perc:": perc,
-        "length pred": lp,
-        "length ytrue": lt,
-    }
-    return results
