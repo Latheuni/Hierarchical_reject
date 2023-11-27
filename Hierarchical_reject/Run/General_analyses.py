@@ -102,8 +102,7 @@ def F_test(X, y):
 
 
 class Fselection:
-    """
-    Normalise beforehand! (Is in assumption!)
+    """Perform feature selection based on the F test. Be careful, the data needs to be normalized before feature selection based in the F-test can be applied.
     """
 
     def __init__(self, n_features=10):
@@ -135,6 +134,8 @@ class Fselection:
 
 
 class HVGselection:
+    """Perform Highly variable feature selection based on the scanpy function.
+    """
     def __init__(self, flavour, top_genes=500):
         self.flavour = flavour
         self.top_genes = top_genes
