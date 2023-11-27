@@ -4,7 +4,6 @@ build:
   os: "ubuntu-22.04"
   tools:
     python: "3.10"
-    R: "4.3"
 
 python:
   install:

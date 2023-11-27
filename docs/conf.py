@@ -2,6 +2,7 @@ import os
 import sys
 
 sys.path.insert(0, os.path.abspath("../Hierarchical_reject/"))  # Naar de python functions
+
 # Configuration file for the Sphinx documentation builder.
 #
 # For the full list of built-in configuration values, see the documentation:
@@ -29,7 +30,7 @@ extensions = [
 ]
 
 autoclass_content = "class"
-
+autodock_mock_imports = ["rpy2"]
 autodoc_default_options = {
     "member-order": "bysource",
 }
