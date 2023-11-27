@@ -21,7 +21,7 @@ Tutorial
 API 
 ====
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 2
 
    Preprocessing <Preprocessing>
    Run <Run>

@@ -14,9 +14,8 @@ Preprocessing methods
 .. automodule:: Preprocessing.Preprocessing_COVID
     :members: Preprocessing_COVID
 
-
 .. automodule:: Preprocessing.Preprocessing_Flyatlas
-    :members: Preprocessing_Flyatlas_body
+    :members: Preprocessing_Flyatlas_body, Preprocessing_Flyatlas_head
 
 .. automodule:: Preprocessing.Preprocessing_Flyatlas
     :members: Preprocessing_Flyatlas_head

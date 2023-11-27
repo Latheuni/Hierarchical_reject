@@ -10,4 +10,4 @@ Feature selection methods:
 
 No K-fold cross valiation:
 .. autofunction:: Run.General_analyses
-    :member: Run_H_NoKF, Run_H_NoKF_sparse, Run_Flat_NoK
+    :members: Run_H_NoKF
