@@ -4,7 +4,8 @@
 
 Code accompanying the paper "Uncertainty-aware single-cell annotation with a hierarchical reject option".
 
-![Documentation](https://readthedocs.org/projects/hierarchical_reject/badge/?version=latest&style=flat-default)(https://hierarchical_reject.readthedocs.io/en/latest/index.html)
+[![Documentation Status](https://readthedocs.org/projects/hierarchical-reject/badge/?version=latest)](https://hierarchical-reject.readthedocs.io/en/latest/?badge=latest)
+
 
 </div>
 
@@ -17,4 +18,5 @@ This repository contains code for the three main parts of the analyses (that can
 
 The rejection process itself is implemented inside the hierarchical classification algorithm (the hclf folder) and implemented in the Evaluation functions for Flat classification. The Evaluation functions shoudl output enough information so that further evaluation outside of the accuracy-rejection functions is also possible.
 
-There is also documentation of all the usefull functions present at 'https://hierarchical_reject.readthedocs.io/en/latest/index.html', together with a tutorial for more information.
+There is also documentation of all the usefull functions present at [![Documentation Status](https://readthedocs.org/projects/hierarchical-reject/badge/?version=latest)](https://hierarchical-reject.readthedocs.io/en/latest/?badge=latest)
+, together with a tutorial for more information.
