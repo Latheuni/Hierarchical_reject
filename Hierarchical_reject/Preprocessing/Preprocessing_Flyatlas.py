@@ -3,10 +3,10 @@ import sys
 import csv
 import pandas as pd
 import numpy as np
-import rpy2.robjects as ro
-from rpy2.robjects import pandas2ri
-import rpy2.robjects.packages as rpackages
-from rpy2.robjects.conversion import localconverter
+#import rpy2.robjects as ro
+#from rpy2.robjects import pandas2ri
+#import rpy2.robjects.packages as rpackages
+#from rpy2.robjects.conversion import localconverter
 
 def convertLabels_Flycell_head(LabelPath, FBBT_dfPath):
     FBBT_df = pd.read_csv(FBBT_dfPath)
