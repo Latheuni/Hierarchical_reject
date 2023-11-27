@@ -25,12 +25,12 @@ Flat analyses
 .. automodule:: Run.General_analyses
     :members: Run_Flat_KF_sparse, Run_Flat_KF, Run_FLat_KF_sparse_splitted, Run_Flat_KF_splitted
 
-Hierarchical analyses^
+Hierarchical analyses
 ^^^^^^^^^^^^^^^^^^^^^
 .. automodule:: Run.General_analyses
     :members: Run_H_KF, Run_H_KF_sparse
 
 To save the results
-~~~~~~~~~~~~~~~~~~~~
+-------------------
 .. automodule:: Run.General_analyses
    :members: SaveResultsKF

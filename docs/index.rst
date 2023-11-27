@@ -10,6 +10,7 @@ Tutorial
 ========
 .. toctree::
    :maxdepth: 1
+   :caption: Tutorial
    
    Tutorial 
 
@@ -17,6 +18,7 @@ API
 ====
 .. toctree::
    :maxdepth: 2
+   :caption: API
 
    Preprocessing <Preprocessing>
    Classification <Run>
