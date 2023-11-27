@@ -1,7 +1,7 @@
 To run the analyses:
 ====================
 
-.. include:: Run.READMEB ùm
+.. include:: Run.README
    :parser: myst_parser.sphinx_
 
 Feature selection methods:
