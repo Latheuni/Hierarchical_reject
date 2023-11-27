@@ -172,6 +172,37 @@ class HVGselection:
 def Run_H_NoKF(
     classifier, data, labels, parameters, n_jobsHCL, Norm=True, greedy_=False
 ):
+    """Function to run hierarchical classification without K-fold cross validation with a dense data matrix.
+
+    Parameters
+    ----------
+    classifier : scikit-learn classifier
+    data : dense matrix
+    labels : list
+    parameters : Dict of str to sequence, or sequence of such
+        Hyperparameters to be evaluated, for more information on the correct input format of this parameter check ParameterGridd by scikit-learn
+    n_jobsHCL : int
+        number of CPU cores used for parallelization of the hierarchical classification
+    Norm : bool, optional
+        Perform log(1+x) normalisation before running the analysis, by default True
+    greedy_ : bool, optional
+        Perform greedy (True) or non-greedy (False) hierarchical classification, by default False
+
+    Returns
+    -------
+    Final Classifier
+        scikit-learn classifier
+    Xtest
+        matrix
+    yests
+        list of lists
+    predicted
+        list
+    probs
+        (dense) numpy matrix
+    Bestparam
+        list
+    """
     # Run without cross-validation to get one single metric at the end
     if Norm == True:
         data = np.log1p(data)  # log(1+x)

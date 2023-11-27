@@ -10,3 +10,4 @@ anndata
 scikit-learn
 scipy
 h5py
+rpy2
