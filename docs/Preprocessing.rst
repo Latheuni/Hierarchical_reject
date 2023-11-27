@@ -5,7 +5,7 @@ Preprocessing methods
 .. include:: Preprocessing.README
    :parser: myst_parser.sphinx_
 
-.. autofunction:: Preprocessing.Preprocessing_AMB
+.. automodule:: Preprocessing.Preprocessing_AMB
     :members: Preprocessing_AMB
 
 .. automodule:: Preprocessing.Preprocessing_Azimuth
@@ -16,6 +16,9 @@ Preprocessing methods
 
 
 .. automodule:: Preprocessing.Preprocessing_Flyatlas
-    :members: Preprocessing_Flyatlas_body, Preprocessing_Flyatlas_head
+    :members: Preprocessing_Flyatlas_body
 
-Small note: I disabled the rpy2 imports in the Preprocessing_Flyatlas file because of readthedocs inability to handle R dependencies. These should be uncommented when running the functions!
+.. automodule:: Preprocessing.Preprocessing_Flyatlas
+    :members: Preprocessing_Flyatlas_head
+
+Small note: I disabled the rpy2 imports in the Preprocessing_Flyatlas file because of readthedocs inability to handle R dependencies. These should be uncommented when running the functions!b: 

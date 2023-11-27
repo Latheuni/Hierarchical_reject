@@ -1,7 +1,7 @@
 To run the analyses:
 ====================
 
-.. include:: Run.README.md
+.. include:: Run.READMEB ùm
    :parser: myst_parser.sphinx_
 
 Feature selection methods:
@@ -10,4 +10,4 @@ Feature selection methods:
 
 No K-fold cross valiation:
 .. autofunction:: Run.General_analyses
-    :member: Run_H_NoKF, Run_H_NoKF_sparse, Run_Flat_NoKF
+    :member: Run_H_NoKF, Run_H_NoKF_sparse, Run_Flat_NoK

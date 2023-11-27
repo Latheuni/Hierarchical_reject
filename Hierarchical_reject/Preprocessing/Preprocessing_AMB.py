@@ -8,7 +8,7 @@ from anndata import AnnData
 from sklearn.preprocessing import StandardScaler
 
 
-def PreprocessingAMB(DataPath, LabelPath):
+def Preprocessing_AMB(DataPath, LabelPath):
     """Preprocessing function for the Allen Mouse Brain dataset
        Cell populations with less than 10 members are filtered out and the labels are converted to the correct format for hierarchical classification.
     Parameters
