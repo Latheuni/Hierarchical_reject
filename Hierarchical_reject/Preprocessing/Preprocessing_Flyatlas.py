@@ -93,7 +93,7 @@ def Preprocessing_FlyCell_head(DataPath, LabelPath, FBBT_dfPath):
     # filter 'NEEDS TO BE FILTERED OUT'
     index_keep = [i != "Needs to be filtered out" for i in labels['Labels in hclf format']]
     Labels = labels[index_keep]
-    Data = data[index_keep]
+    Data = data[index_keep] 
     return(Data, Labels)
 
 

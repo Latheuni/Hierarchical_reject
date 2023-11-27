@@ -1,4 +1,3 @@
-h5torch
 nbsphinx
 ipykernel
 myst-parser
@@ -10,5 +9,5 @@ scanpy
 anndata
 scikit-learn
 scipy
-
 h5py
+rpy2
