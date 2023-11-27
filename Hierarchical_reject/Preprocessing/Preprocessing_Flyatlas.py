@@ -51,14 +51,24 @@ def convertLabels_Flycell_head(LabelPath, FBBT_dfPath):
     return(Labels)
 
 def Preprocessing_FlyCell_head(DataPath, LabelPath, FBBT_dfPath):
-    """_summary_
+    """Preprocessing function for the Flyhead dataset. The hierarchical information is formatted and cell populations with less than members are discarded.
 
-    Args:
-        DataPath (_type_): _description_
-        LabelPath (_type_): _description_
-        FBBT_dfPath (_type_): _description_
-    """
+    Parameters
+    ----------
+    DataPath : Loom file
+        Local path to the Flyhead dataset
+    LabelPath : csv file
+        Local path to the labels of the Flyhead dataset
+    FBBT_dfPath : csb path
+        Local path to the FBbt ontology terms linked to the labels of the Flyhead dataset
     
+    Returns
+    -------
+    Data
+        Pandas dataframe
+    Labels
+        List
+    """
     # Read in the count matrix
     SCopeLoomR = rpackages.importr('SCopeLoomR')
     loom = SCopeLoomR.open_loom(DataPath, mode="r+")
@@ -68,26 +78,23 @@ def Preprocessing_FlyCell_head(DataPath, LabelPath, FBBT_dfPath):
     #print(type(pdf_from_r_df)) # says numpy ndarray
     p_df_from_r_df = pd.DataFrame(pdf_from_r_df)
     print(p_df_from_r_df.head()) # should hopefully have gene and cell in column and row names, just has indices in cell names
-    Data = p_df_from_r_df.T # get cell x gene matrix
+    Data_init = p_df_from_r_df.T # get cell x gene matrix
     
     # Read in the Labels and convert to correct format
-    Labels = convertLabels_Flycell_head(LabelPath, FBBT_dfPath) # Labels in correct format in column 'Labels in hclf format' in df
+    Labels_init = convertLabels_Flycell_head(LabelPath, FBBT_dfPath) # Labels in correct format in column 'Labels in hclf format' in df
     
     # filter cell populations with less than 10 cells
-    l2 = Labels['Labels in hclf format'].value_counts()
+    l2 = Labels_init['Labels in hclf format'].value_counts()
     removed_classes = l2.index.values[l2<10] #numpy.ndarray
-    Cells_To_Keep = [i for i in range(len(Labels['Labels in hclf format'])) if not Labels['Labels in hclf format'][i] in removed_classes] # list with indices
-    labels = Labels.iloc[Cells_To_Keep]
-    data = Data.iloc[Cells_To_Keep] # equal to .iloc[cells_to_keep,:]
+    Cells_To_Keep = [i for i in range(len(Labels_init['Labels in hclf format'])) if not Labels['Labels in hclf format'][i] in removed_classes] # list with indices
+    labels = Labels_init.iloc[Cells_To_Keep]
+    data = Data_init.iloc[Cells_To_Keep] # equal to .iloc[cells_to_keep,:]
     
     # filter 'NEEDS TO BE FILTERED OUT'
     index_keep = [i != "Needs to be filtered out" for i in labels['Labels in hclf format']]
-    Labels_final = labels[index_keep]
-    Data_final = data[index_keep]
-    
-    print(len(np.unique(Labels_final)))
-    print(np.unique(Labels_final))
-    return(Data_final, Labels_final)
+    Labels = labels[index_keep]
+    Data = data[index_keep]
+    return(Data, Labels)
 
 
 def convertLabels_Flycell_body(LabelPath, FBBT_dfPath):
@@ -133,13 +140,24 @@ def convertLabels_Flycell_body(LabelPath, FBBT_dfPath):
     
     return(Labels)
 
-def Preprocessing_FlyCell_body(DataPath, LabelPath, FBBT_dfPath):
-    """_summary_
+def Preprocessing_Flyatlas_body(DataPath, LabelPath, FBBT_dfPath):
+    """Preprocessing function for the Flybody dataset. The hierarchical information is formatted and cell populations with less than members are discarded.
 
-    Args:
-        DataPath (_type_): _description_
-        LabelPath (_type_): _description_
-        FBBT_dfPath (_type_): _description_
+    Parameters
+    ----------
+    DataPath : Loom file
+        Local path to the Flybody dataset
+    LabelPath : csv file
+        Local path to the labels of the Flybody dataset
+    FBBT_dfPath : csb path
+        Local path to the FBbt ontology terms linked to the labels of the Flybody dataset
+    
+    Returns
+    -------
+    Data
+        Pandas dataframe
+    Labels
+        List
     """
     
     # Read in the count matrix
@@ -151,21 +169,21 @@ def Preprocessing_FlyCell_body(DataPath, LabelPath, FBBT_dfPath):
     #print(type(pdf_from_r_df)) # says numpy ndarray
     p_df_from_r_df = pd.DataFrame(pdf_from_r_df)
     print(p_df_from_r_df.head()) # should hopefully have gene and cell in column and row names, just has indices in cell names
-    Data = p_df_from_r_df.T # get cell x gene matrix
+    Data_init = p_df_from_r_df.T # get cell x gene matrix
     
     # Read in the Labels and convert to correct format
-    Labels = convertLabels_Flycell_body(LabelPath, FBBT_dfPath) # Labels in correct format in column 'Labels in hclf format' in df
+    Labels_init = convertLabels_Flycell_body(LabelPath, FBBT_dfPath) # Labels in correct format in column 'Labels in hclf format' in df
     
     # filter cell populations with less than 10 cells
-    l2 = Labels['Labels in hclf format'].value_counts()
+    l2 = Labels_init['Labels in hclf format'].value_counts()
     removed_classes = l2.index.values[l2<10] #numpy.ndarray
-    Cells_To_Keep = [i for i in range(len(Labels['Labels in hclf format'])) if not Labels['Labels in hclf format'][i] in removed_classes] # list with indices
-    labels = Labels.iloc[Cells_To_Keep]
-    data = Data.iloc[Cells_To_Keep] # equal to .iloc[cells_to_keep,:]
+    Cells_To_Keep = [i for i in range(len(Labels_init['Labels in hclf format'])) if not Labels['Labels in hclf format'][i] in removed_classes] # list with indices
+    labels = Labels_init.iloc[Cells_To_Keep]
+    data = Data_init.iloc[Cells_To_Keep] # equal to .iloc[cells_to_keep,:]
     
     # filter 'NEEDS TO BE FILTERED OUT'
     index_keep = [i != 'NEEDS TO BE FILTERED OUT' for i in labels['Labels in hclf format']]
-    Labels_final = labels[index_keep]
-    Data_final = data[index_keep]
+    Labels = labels[index_keep]
+    Data = data[index_keep]
     
-    return(Data_final, Labels_final)
+    return(Data, Labels)

@@ -2,25 +2,27 @@ import pandas as pd
 import numpy as np
 
 
-def PreprocessingCOVID(
+def Preprocessing_COVID(
     LabelPath, DataPath, filter_prolif=True, filter_unspecified=False
 ):
-    """
+    """Preprocessing function for the COVID dataset
+       Cell populations with less than 10 members are filtered out together with unspecified and proliferating cells and the labels are converted to the correct format for hierarchical classification.
+    
     Parameters
     ----------
     LabelPath : str
-        Local Path to Labels of COVID dataset
+        Local path to labels of COVID dataset
     DataPath : str
-        Local Path to Labels of COVID dataset
+        Local path to the COVID dataset
     filter_prolif : Boolean,optional
-        Filter out the Proliferating cell state labels?. The default is True.
+        Filter out the proliferating cell state labels. The default is True.
     filter_unspecified : Boolean, optional
-        Filter out the undpecified labels?. The default is False.
+        Filter out the unspecified labels. The default is False.
 
     Returns
     -------
-    Data: filtered data dataframe
-    Labels: pandas dataframe, column 3 contains the input data for hclf
+    Data: Filtered pandas dataframe
+    Labels: Pandas dataframe (column 3 contains the input data for hierarchical classification)
 
     """
     Labels = pd.read_csv(LabelPath, header=None, index_col=None, sep=",")

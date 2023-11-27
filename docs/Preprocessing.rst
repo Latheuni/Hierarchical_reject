@@ -10,7 +10,7 @@ Preprocessing methods
     :members: ReadIn_PBMC
 
 .. automodule:: Preprocessing.Preprocessing_COVID
-    :members: 
+    :members: Preprocessing_COVID
 
 
 
