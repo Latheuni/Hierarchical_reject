@@ -1,13 +1,10 @@
-<div align="center">
-<h1>Hierarchical reject</h1>
+# Uncertainty-aware single-cell annotation with a hierarchical reject option [![Documentation Status](https://readthedocs.org/projects/hierarchical-reject/badge/?version=latest)](https://hierarchical-reject.readthedocs.io/en/latest/?badge=latest) [![GitHub license](https://img.shields.io/github/license/Latheuni/Hierarchical_reject)](https://github.com/Latheuni/Hierarchical_reject/blob/main/LICENSE)
 
+## Description
 
 Code accompanying the paper "Uncertainty-aware single-cell annotation with a hierarchical reject option".
 
-[![Documentation Status](https://readthedocs.org/projects/hierarchical-reject/badge/?version=latest)](https://hierarchical-reject.readthedocs.io/en/latest/?badge=latest)
-
-
-</div>
+## Content of the repository 
 
 This repository contains all the code necessary to recreate the analyses performed in the paper, given the datasets that can be freely downloaded from their corresponding papers.
 
@@ -18,5 +15,10 @@ This repository contains code for the three main parts of the analyses (that can
 
 The rejection process itself is implemented inside the hierarchical classification algorithm (the hclf folder) and implemented in the evaluation functions for flat classification. The evaluation functions should output enough information so that further evaluation of the rejection processes besides the accuracy-rejection curves is also possible.
 
+## Documentation
 Documentation can be found here: [![Documentation Status](https://readthedocs.org/projects/hierarchical-reject/badge/?version=latest)](https://hierarchical-reject.readthedocs.io/en/latest/?badge=latest)
 , together with a tutorial on how to run the analyses.
+
+## Datasets
+
+## References
