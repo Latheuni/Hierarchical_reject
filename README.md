@@ -16,7 +16,7 @@ This repository contains code for the three main parts of the analyses (that can
 2. *Run* contains the code needed to run flat and or hierarchical classification with F-test or HVG feature selection
 3. *Evaluation* contains code that allows the evaluation of partial and or full rejection with the help of accuracy-rejection curves
 
-The rejection process itself is implemented inside the hierarchical classification algorithm (the hclf folder) and implemented in the Evaluation functions for Flat classification. The Evaluation functions shoudl output enough information so that further evaluation outside of the accuracy-rejection functions is also possible.
+The rejection process itself is implemented inside the hierarchical classification algorithm (the hclf folder) and implemented in the evaluation functions for flat classification. The evaluation functions should output enough information so that further evaluation of the rejection processes besides the accuracy-rejection curves is also possible.
 
-There is also documentation of all the usefull functions present at [![Documentation Status](https://readthedocs.org/projects/hierarchical-reject/badge/?version=latest)](https://hierarchical-reject.readthedocs.io/en/latest/?badge=latest)
-, together with a tutorial for more information.
+Documentation can be found here: [![Documentation Status](https://readthedocs.org/projects/hierarchical-reject/badge/?version=latest)](https://hierarchical-reject.readthedocs.io/en/latest/?badge=latest)
+, together with a tutorial on how to run the analyses.

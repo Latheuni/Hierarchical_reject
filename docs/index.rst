@@ -6,16 +6,13 @@ Hierarchical reject documentation
 .. include:: Hierarchical_reject.README.md
    :parser: myst_parser.sphinx_
 
-Tutorial
-========
+
 .. toctree::
    :maxdepth: 1
    :caption: Tutorial
    
-   Tutorial 
+   Tutorial <Tutorial>
 
-API 
-====
 .. toctree::
    :maxdepth: 2
    :caption: API
@@ -24,11 +21,4 @@ API
    Classification <Run>
    Evaluation <Evaluation>
 
-..
-   Indices and tables
-   ==================
 
-..
-   * :ref:`genindex`
-   * :ref:`modindex`
-   * :ref:`search`
