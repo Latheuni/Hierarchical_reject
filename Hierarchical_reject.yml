@@ -1,0 +1,20 @@
+name: Hierarchical_reject
+channels:
+  - conda-forge
+  - default
+dependencies:
+  - pip
+  - python
+  - numpy
+  - anndata
+  - pandas
+  - scikit-learn
+  - scipy
+  - seaborn
+  - ipykernel
+  - matplotlib
+  - nbformat
+  - rpy2
+  - pip:
+      - scanpy
+      - h5py
