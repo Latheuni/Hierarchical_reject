@@ -1,7 +1,6 @@
 Preprocessing methods
 =====================
 
-
 .. include:: Hierarchical_reject.Preprocessing.README
    :parser: myst_parser.sphinx_
 

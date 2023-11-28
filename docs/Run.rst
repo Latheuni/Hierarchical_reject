@@ -1,8 +1,6 @@
 Functions to run the analyses:
 ====================
 
-.. include:: Run.README.md
-   :parser: myst_parser.sphinx_
 
 Feature selection methods
 -------------------------

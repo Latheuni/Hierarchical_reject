@@ -28,6 +28,7 @@ extensions = [
     "myst_parser",
     "nbsphinx",
 ]
+nbsphinx_allow_errors = True
 
 autoclass_content = "class"
 autodock_mock_imports = ["rpy2"]
