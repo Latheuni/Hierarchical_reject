@@ -15,6 +15,9 @@ This repository contains code for the three main parts of the analyses (that can
 
 The rejection process itself is implemented inside the hierarchical classification algorithm (the hclf folder) and implemented in the evaluation functions for flat classification. The evaluation functions should output enough information so that further evaluation of the rejection processes besides the accuracy-rejection curves is also possible.
 
+## Installation
+This code is designed to be cloned and run locally. A yaml file to create a conda environment is provided. A local installation of Python and R is needed (the latter to access the loom format of the Flyatlas datasets).
+
 ## Documentation
 Documentation can be found here: [![Documentation Status](https://readthedocs.org/projects/hierarchical-reject/badge/?version=latest)](https://hierarchical-reject.readthedocs.io/en/latest/?badge=latest)
 , together with a tutorial on how to run the analyses.
