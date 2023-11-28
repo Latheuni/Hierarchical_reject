@@ -23,7 +23,7 @@ With K-fold cross-validation
 Flat analyses
 ^^^^^^^^^^^^
 .. automodule:: Run.General_analyses
-    :members: Run_Flat_KF_sparse, Run_Flat_KF, Run_FLat_KF_sparse_splitted, Run_Flat_KF_splitted
+    :members: Run_Flat_KF_sparse, Run_Flat_KF, Run_Flat_KF_sparse_splitted, Run_Flat_KF_splitted
 
 Hierarchical analyses
 ^^^^^^^^^^^^^^^^^^^^^
