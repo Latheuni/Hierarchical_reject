@@ -1,3 +1,0 @@
-This folder contains all the preprocessing steps that need to be performed before running the analyses. 
-
-**Preprocessing_Flyatlas.py** contains the preprocessing methods for the Flybody and Flyhead datasets
