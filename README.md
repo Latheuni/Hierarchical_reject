@@ -1,4 +1,4 @@
-# Uncertainty-aware single-cell annotation with a hierarchical reject option [![Documentation Status](https://readthedocs.org/projects/hierarchical-reject/badge/?version=latest)](https://hierarchical-reject.readthedocs.io/en/latest/?badge=latest) [![GitHub license](https://img.shields.io/github/license/Latheuni/Hierarchical_reject)](https://github.com/Latheuni/Hierarchical_reject/blob/main/LICENSE)[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10213715.svg)](https://doi.org/10.5281/zenodo.10213715)
+# Uncertainty-aware single-cell annotation with a hierarchical reject option [![Documentation Status](https://readthedocs.org/projects/hierarchical-reject/badge/?version=latest)](https://hierarchical-reject.readthedocs.io/en/latest/?badge=latest) [![GitHub license](https://img.shields.io/github/license/Latheuni/Hierarchical_reject)](https://github.com/Latheuni/Hierarchical_reject/blob/main/LICENSE) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10213715.svg)](https://doi.org/10.5281/zenodo.10213715)
 
 ## Description
 
