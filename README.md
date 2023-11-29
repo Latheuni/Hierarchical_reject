@@ -1,4 +1,4 @@
-# Uncertainty-aware single-cell annotation with a hierarchical reject option [![Documentation Status](https://readthedocs.org/projects/hierarchical-reject/badge/?version=latest)](https://hierarchical-reject.readthedocs.io/en/latest/?badge=latest) [![GitHub license](https://img.shields.io/github/license/Latheuni/Hierarchical_reject)](https://github.com/Latheuni/Hierarchical_reject/blob/main/LICENSE)
+# Uncertainty-aware single-cell annotation with a hierarchical reject option [![Documentation Status](https://readthedocs.org/projects/hierarchical-reject/badge/?version=latest)](https://hierarchical-reject.readthedocs.io/en/latest/?badge=latest) [![GitHub license](https://img.shields.io/github/license/Latheuni/Hierarchical_reject)](https://github.com/Latheuni/Hierarchical_reject/blob/main/LICENSE)[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10213715.svg)](https://doi.org/10.5281/zenodo.10213715)
 
 ## Description
 
@@ -29,7 +29,8 @@ This paper uses 5 open-source datasets:
 3. The Azimuth PBMC dataset [3]
 4. and 5. from the Flyatlas [4]: the Flyhead and Flybody dataset
    
-The data files used in this paper for the analyses are available at Zenodo: (all credits of these datasets go to the original creators of the dataset)
+The data files used in this paper for the analyses are available at Zenodo: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10213715.svg)](https://doi.org/10.5281/zenodo.10213715)
+ (all credits of these datasets go to the original creators of the datasets)
 
 ## References
 [1] Tasic, B. et al. (2018). Shared and distinct transcriptomic cell types across neocortical areas. Nature, 563 (7729), 72–78. https://doi.org/10.1038/s41586-018-0654-5
