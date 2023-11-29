@@ -51,7 +51,7 @@ def convertLabels_Flycell_head(LabelPath, FBBT_dfPath):
     return(Labels)
 
 def Preprocessing_Flyatlas_head(DataPath, LabelPath, FBBT_dfPath):
-    """Preprocessing function for the Flyhead dataset. 
+    """Preprocessing function for the Flyhead dataset 
     The hierarchical information is formatted and cell populations with less than 10 members are discarded.
 
     Parameters
@@ -140,7 +140,7 @@ def convertLabels_Flycell_body(LabelPath, FBBT_dfPath):
     return(Labels)
 
 def Preprocessing_Flyatlas_body(DataPath, LabelPath, FBBT_dfPath):
-    """Preprocessing function for the Flybody dataset. 
+    """Preprocessing function for the Flybody dataset 
     
     The hierarchical information is formatted and cell populations with less than 10 members are discarded.
 
