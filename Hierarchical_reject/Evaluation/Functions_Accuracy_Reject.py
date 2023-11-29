@@ -588,7 +588,7 @@ def Accuracy_Rejection_Parallel(
 # Evaluation functions
 def Evaluate_AR_Flat(clf_list, Xtests, ytests, predictions, probabilities, b, scores):
     """Function to generate datapoints for accuracy-rejection curves with flat classification 
-    The rejection threshold is varied with a stepsize of 0.01.
+       The rejection threshold is varied with a stepsize of 0.01.
 
     Parameters
     ----------
@@ -635,7 +635,7 @@ def Evaluate_AR_Flat(clf_list, Xtests, ytests, predictions, probabilities, b, sc
 
 def Evaluate_AR(clf_list, Xtests, ytests, predictions, greedy=True):
     """Function to generate datapoints for accuracy-rejection curves with hierarchical classification 
-    The rejection threshold is varied with a stepsize of 0.01.
+       The rejection threshold is varied with a stepsize of 0.01.
 
     Parameters
     ----------
@@ -679,7 +679,7 @@ from joblib import Parallel, delayed
 
 def Evaluate_AR_parallel(clf_list, Xtests, ytests, predictions, all_jobs, greedy):
     """Function to generate datapoints for accuracy-rejection curves with hierarchical classification in a parallel manner 
-    The rejection threshold is varied with a stepsize of 0.01.
+       The rejection threshold is varied with a stepsize of 0.01.
 
     Parameters
     ----------
