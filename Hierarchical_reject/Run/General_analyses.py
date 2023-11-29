@@ -575,7 +575,7 @@ def Run_Flat_KF(
 
     Parameters
     ----------
-    classifier : 
+    classifier_ : 
         Scikit-learn classifier
     n_folds : int
         Number of folds, must be at least 2
