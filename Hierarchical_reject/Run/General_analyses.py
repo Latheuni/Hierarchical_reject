@@ -244,7 +244,7 @@ def Run_H_NoKF(
         Final_clf, sep=";", n_jobs=n_jobsHCL, random_state=0, verbose=1
     )
     Final_Classifier.fit(Xtrain, ytrain.values.ravel())
-    predicted, probs = Final_Classifier.predict(Xtest, reject_thr=None, greedy=True)
+    predicted, probs = Final_Classifier.predict(Xtest, reject_thr=None, greedy=greedy_)
     accuracyfold = accuracy_score(ytest, predicted)
 
     print("accuracy fold", accuracyfold)
@@ -326,7 +326,7 @@ def Run_H_NoKF_sparse(
         Final_clf, sep=";", n_jobs=n_jobsHCL, random_state=0, verbose=1
     )
     Final_Classifier.fit(Xtrain, ytrain.ravel())
-    predicted, probs = Final_Classifier.predict(Xtest, reject_thr=None, greedy=True)
+    predicted, probs = Final_Classifier.predict(Xtest, reject_thr=None, greedy=greedy_)
     accuracyfold = accuracy_score(ytest, predicted)
 
     print("accuracy fold", accuracyfold)
