@@ -54,6 +54,7 @@ def Preprocessing_Flyatlas_head(DataPath, LabelPath, FBBT_dfPath):
     """Preprocessing function for the Flyhead dataset 
        The hierarchical information is formatted and cell populations with less than 10 members are discarded.
 
+       Note: uncomment the rpy2 import statements
     Parameters
     ----------
     DataPath : str
@@ -62,6 +63,7 @@ def Preprocessing_Flyatlas_head(DataPath, LabelPath, FBBT_dfPath):
         Local path to the labels of the Flyhead dataset (csv file)
     FBBT_dfPath : str
         Local path to the FBbt ontology terms linked to the labels of the Flyhead dataset (csv file)
+    
     
     Returns
     -------
@@ -85,7 +87,7 @@ def Preprocessing_Flyatlas_head(DataPath, LabelPath, FBBT_dfPath):
     # filter cell populations with less than 10 cells
     l2 = Labels_init['Labels in hclf format'].value_counts()
     removed_classes = l2.index.values[l2<10] #numpy.ndarray
-    Cells_To_Keep = [i for i in range(len(Labels_init['Labels in hclf format'])) if not Labels['Labels in hclf format'][i] in removed_classes] # list with indices
+    Cells_To_Keep = [i for i in range(len(Labels_init['Labels in hclf format'])) if not Labels_init['Labels in hclf format'][i] in removed_classes] # list with indices
     labels = Labels_init.iloc[Cells_To_Keep]
     data = Data_init.iloc[Cells_To_Keep] # equal to .iloc[cells_to_keep,:]
     
@@ -175,7 +177,7 @@ def Preprocessing_Flyatlas_body(DataPath, LabelPath, FBBT_dfPath):
     # filter cell populations with less than 10 cells
     l2 = Labels_init['Labels in hclf format'].value_counts()
     removed_classes = l2.index.values[l2<10] #numpy.ndarray
-    Cells_To_Keep = [i for i in range(len(Labels_init['Labels in hclf format'])) if not Labels['Labels in hclf format'][i] in removed_classes] # list with indices
+    Cells_To_Keep = [i for i in range(len(Labels_init['Labels in hclf format'])) if not Labels_init['Labels in hclf format'][i] in removed_classes] # list with indices
     labels = Labels_init.iloc[Cells_To_Keep]
     data = Data_init.iloc[Cells_To_Keep] # equal to .iloc[cells_to_keep,:]
     
