@@ -148,9 +148,14 @@ def accuracy_score_reject_delete(ytrue, ypred):
 
 
     rejected = [True if label in np.unique(ytrue) else False for label in ypred]
+    
     filtered_ytrue = [ytrue[i] for i in range(len(ytrue)) if rejected[i]]
     filtered_ypred= [ypred[i] for i in range(len(ytrue)) if rejected[i]]
-    return accuracy_score(filtered_ytrue, filtered_ypred)
+    
+    if filtered_ytrue == []:
+        return(1.0)
+    else:
+        return accuracy_score(filtered_ytrue, filtered_ypred)
 
 
 def _tree_flat(Labels, classes, balanced):  # WORKS
@@ -571,10 +576,10 @@ def Accuracy_Rejection(
         p.append(perc)
         lp.append(lengths_pred)
         lt.append(lengths_ytrue)
-    return (acc_del, acc_int, perc, lp, lt, steps)
+    return (acc_del, acc_int, p , lp, lt, steps)
 
-def _AR_parallel(clf, X, y, t, acc_del, acc_int, greedy_=True,):
-        predicted, probs = clf.predict(X, reject_thr=t, greedy=greedy_)
+def _AR_parallel(clf, X, y, steps, t, acc_del, acc_int, greedy_=True):
+        predicted, probs = clf.predict(X, reject_thr=steps, greedy=greedy_)
         acc_del[t] = accuracy_score_reject_delete(y, predicted)
         acc_int[t] = accuracy_score_reject_intermediate(y, predicted)
         perc, lengths_pred, lengths_ytrue = find_percentage_reject(y, predicted)
@@ -612,8 +617,11 @@ def Accuracy_Rejection_Parallel(
     acc_del = np.zeros(len(steps))
     acc_int = np.zeros(len(steps))
     
+    print(y)
+    print(X)
+    print(steps)
     acc_del, acc_int, perc, lp, lt, steps = zip(*Parallel(n_jobs = jobs)(
-        delayed(_AR_parallel)(clf, X, y, t, acc_del, acc_int, greedy_) for t in steps
+        delayed(_AR_parallel)(clf, X, y, steps[t] ,t, acc_del, acc_int, greedy_) for t in range(0, len(steps))
     ))
     return (acc_del, acc_int, perc, lp, lt, steps)
 
@@ -692,7 +700,7 @@ def Evaluate_AR(clf_list, Xtests, ytests, predictions, greedy=True):
     for i in range(0, len(clf_list)):
         print('starting accuracy', accuracy_score(ytests[i], predictions[i]))
         p, probs = clf_list[i].predict(Xtests[i])
-        print('accyracy test', accuracy_score(ytests[i], p))
+        print('accuracy test', accuracy_score(ytests[i], p))
         acc_del, acc_int, perc, lp, lt, steps = Accuracy_Rejection(clf_list[i], Xtests[i], ytests[i], greedy_ = greedy)
         results["Try " + str(i + 1)] = {
             "acc_del": acc_del,
