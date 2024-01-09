@@ -128,9 +128,9 @@ def accuracy_score_reject_delete(ytrue, ypred):
     """Calculates the accuracy score, rejected labels are not considered
 
     Args:
-        ytrue list:
+        ytrue: list
             The tue labels
-        ypred list:
+        ypred: list
             The predictions for the true labels
     """
     # Assert correct beginng datatype
@@ -617,9 +617,6 @@ def Accuracy_Rejection_Parallel(
     acc_del = np.zeros(len(steps))
     acc_int = np.zeros(len(steps))
     
-    print(y)
-    print(X)
-    print(steps)
     acc_del, acc_int, perc, lp, lt, steps = zip(*Parallel(n_jobs = jobs)(
         delayed(_AR_parallel)(clf, X, y, steps[t] ,t, acc_del, acc_int, greedy_) for t in range(0, len(steps))
     ))
@@ -698,9 +695,7 @@ def Evaluate_AR(clf_list, Xtests, ytests, predictions, greedy=True):
     """
     results = {}
     for i in range(0, len(clf_list)):
-        print('starting accuracy', accuracy_score(ytests[i], predictions[i]))
         p, probs = clf_list[i].predict(Xtests[i])
-        print('accuracy test', accuracy_score(ytests[i], p))
         acc_del, acc_int, perc, lp, lt, steps = Accuracy_Rejection(clf_list[i], Xtests[i], ytests[i], greedy_ = greedy)
         results["Try " + str(i + 1)] = {
             "acc_del": acc_del,
@@ -745,9 +740,7 @@ def Evaluate_AR_parallel(clf_list, Xtests, ytests, predictions, all_jobs, greedy
     """
     results = {}
     for i in range(0, len(clf_list)):
-        print('starting accuracy', accuracy_score(ytests[i], predictions[i]))
         p, probs = clf_list[i].predict(Xtests[i])
-        print('accyracy test', accuracy_score(ytests[i], p))
         acc_del, acc_int, perc, lp, lt, steps = Accuracy_Rejection_Parallel(clf_list[i], Xtests[i], ytests[i], all_jobs, greedy_ = greedy)
         results["Try " + str(i + 1)] = {
             "acc_del": acc_del,

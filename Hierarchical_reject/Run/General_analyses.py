@@ -858,8 +858,9 @@ def Run_Flat_KF_sparse_splitted(
                     list(y_test),
                     accuracyfold,
                     Bestparams,
-                    acc,
                     Final_Classifier,
+                    X_test,
+                    y_test,
                 )
             
             else:
@@ -921,7 +922,8 @@ def Run_Flat_KF_splitted(
     -------
     predicted: list
     prob: matrix
-    y_test; list
+    X_test: matrix
+    y_test: list
     accuracy_fold: float
     Bestparams: list
     acc: list
@@ -1015,8 +1017,9 @@ def Run_Flat_KF_splitted(
                     list(y_test.values),
                     accuracyfold,
                     Bestparams,
-                    acc,
                     Final_Classifier,
+                    X_test,
+                    y_test,
                 )
             else:
                 return (
@@ -1581,7 +1584,311 @@ def Run_H_KF_sparse(
             AccuraciesFolds,
             Bestparams,
             AllAccuracies,
+
+
         )
+        
+def Run_H_KF_splitted(
+    classifier_,
+    n_folds,
+    data,
+    labels,
+    parameters,
+    n_jobsHCL,
+    reject_thresh,
+    fold,
+    greedy_=True,
+    Norm=True,
+    HVG=False,
+    F_test=False,
+    save_clf=False,
+    metric="accuracy_score",
+):
+
+ """Function to run hierarchical classification with for one K-fold cross validation fold on a dense data matrix.
+
+    Parameters
+    ----------
+    classifier_ : 
+        Scikit-learn classifier
+    n_folds : int
+        Number of folds, must be at least 2
+    data :  matrix
+        Data matrix
+    labels : list
+        Cell type labels
+    parameters : dict of str to sequence, or sequence of such
+        Hyperparameters to be evaluated (for more information on the correct input format of this parameter check ParameterGridd by scikit-learn)
+    fold : int
+        Specific fold that is currently considered
+    n_jobsHCL : int
+        Number of CPU cores used for parallelization of the hierarchical classification
+    reject_thresh : float or None (str)
+        If not None, annotation will stop if the probability of a label will drop below the inputted value
+    greedy_ : bool, optional
+         Perform greedy (True) or non-greedy (False) hierarchical classification, by default False
+    Norm : bool, optional
+        Perform log(1+x) normalisation before running the analysis, by default True
+    HVG : bool, optional
+        If true, perform highly variable feature selection, the number of selected features ('top_genes') is a hyperparameter that should be incorporated in parameters, by default False
+    F_test : bool, optional
+        If True, perform feature selection based on the F-test, the number of selected features ('n_features') is a hyperparameter that should be incorporated in parameters, by default False
+    save_clf : bool, optional
+        If True, outputs the trained classifiers per fold together with the data and label test splits, by default False
+    metric : str, optional
+        Use "accuracy score" or "log_loss" for test and train evaluation, by default "accuracy_score"
+    Returns
+    -------
+    predicted: list 
+    y_test: list
+    accuracy_fold: float
+    Bestparam: float
+    acc: list
+    Final_Classifiers: classifiers (optional)
+    Xtest: matrix (optional)
+    """
+    if Norm == True:
+        data = np.log1p(data)  # log(1+x)
+
+    folds = StratifiedKFold(n_splits=n_folds, shuffle=True, random_state=1)
+    j = 1
+    for train_idx, test_idx in folds.split(data, labels):
+        print('new fold')
+        if not isinstance(data, pd.DataFrame):
+            data = pd.DataFrame(data)
+
+        if not isinstance(labels, (pd.DataFrame, pd.Series)):
+            labels = pd.DataFrame(labels)
+        if j == fold:
+            X_test = data.iloc[test_idx, :]
+            X_train = data.iloc[train_idx, :]
+            y_test = labels.iloc[test_idx]
+            y_train = labels.iloc[train_idx]
+
+            Xtest_tuning, Xtrain_tuning, ytest_tuning, ytrain_tuning = train_test_split(
+                X_train, y_train, stratify=y_train, train_size=0.25, random_state=6
+            )
+
+            i = 0
+            param_grid = ParameterGrid(parameters)
+            acc = np.zeros(len(list(param_grid)))
+            for params in param_grid:
+                classifier_ = classifier_.set_params(**params)
+                clf = LCPN(
+                    classifier_, sep=";", n_jobs=n_jobsHCL, random_state=0, verbose=1
+                )
+                clf.fit(Xtrain_tuning, ytrain_tuning.values.ravel())
+                y_pred, y_probs = clf.predict(
+                    Xtest_tuning, reject_thr=reject_thresh, greedy=greedy_
+                )  # is a list$
+                # print(type(y_pred))
+                if metric == "accuracy_score":
+                    acc[i] = accuracy_score(ytest_tuning, y_pred)
+                elif metric == "log_loss":
+                    if not hasattr(classifier_, "predict_proba"):
+                        prob = predict_proba_from_scores(clf, Xtest_tuning)
+                    else:
+                        prob = clf.predict_proba(Xtest_tuning)
+                    acc[i] = log_loss(ytest_tuning, prob)
+
+                i += 1
+
+            acc = list(acc)
+            print("training metrics in this fold", acc)
+            if metric == "accuracy_score":
+                max_accuracy = max(acc)
+            elif metric == "log_loss":
+                max_accuracy = min(acc)
+            index_bestparam = acc.index(max_accuracy)
+            Bestparam = list(param_grid)[index_bestparam]
+
+            
+            classifier_ = classifier_.set_params(**params)
+            Final_Classifier = LCPN(
+                classifier_, sep=";", n_jobs=n_jobsHCL, random_state=0, verbose=1
+            )
+            Final_Classifier.fit(X_train, y_train.values.ravel())
+
+            predicted, probs = Final_Classifier.predict(
+                X_test, reject_thr=reject_thresh, greedy=greedy_
+            )
+            if metric == "accuracy_score":
+                accuracyfold = accuracy_score(y_test, predicted)
+            elif metric == "log_loss":
+                if not hasattr(classifier_, "predict_proba"):
+                    prob = predict_proba_from_scores(Final_Classifier, X_test)
+                else:
+                    prob = Final_Classifier.predict_proba(X_test)
+                accuracyfold = log_loss(
+                    y_test,prob)
+            print("test metric fold", accuracyfold)
+            print("\n")
+      
+            if save_clf:
+                return (
+                    predicted,
+                    y_test,
+                    accuracyfold,
+                    Bestparam,
+                    acc,
+                    Final_Classifier,
+                    X_test,
+                )
+            else:
+                return (
+                    predicted,
+                    y_test,
+                    accuracyfold,
+                    Bestparam,
+                    acc,
+                )
+        else:
+            j += 1
+            continue
+def Run_H_KF_sparse_splitted(
+    classifier_,
+    n_folds,
+    data,
+    labels,
+    parameters,
+    n_jobsHCL,
+    reject_thresh,
+    fold,
+    greedy_=True,
+    Norm=True,
+    HVG=False,
+    F_test=False,
+    save_clf=False,
+    metric="accuracy_score",
+):
+ """Function to run hierarchical classification with for one K-fold cross validation fold on a sparse data matrix.
+
+    Parameters
+    ----------
+    classifier_ : 
+        Scikit-learn classifier
+    n_folds : int
+        Number of folds, must be at least 2
+    data : sparse matrix
+        Data matrix
+    labels : list
+        Cell type labels
+    parameters : dict of str to sequence, or sequence of such
+        Hyperparameters to be evaluated (for more information on the correct input format of this parameter check ParameterGridd by scikit-learn)
+    fold : int
+        Specific fold that is currently considered
+    n_jobsHCL : int
+        Number of CPU cores used for parallelization of the hierarchical classification
+    reject_thresh : float or None (str)
+        If not None, annotation will stop if the probability of a label will drop below the inputted value
+    greedy_ : bool, optional
+         Perform greedy (True) or non-greedy (False) hierarchical classification, by default False
+    Norm : bool, optional
+        Perform log(1+x) normalisation before running the analysis, by default True
+    HVG : bool, optional
+        If true, perform highly variable feature selection, the number of selected features ('top_genes') is a hyperparameter that should be incorporated in parameters, by default False
+    F_test : bool, optional
+        If True, perform feature selection based on the F-test, the number of selected features ('n_features') is a hyperparameter that should be incorporated in parameters, by default False
+    save_clf : bool, optional
+        If True, outputs the trained classifiers per fold together with the data and label test splits, by default False
+    metric : str, optional
+        Use "accuracy score" or "log_loss" for test and train evaluation, by default "accuracy_score"
+    Returns
+    -------
+    predicted: list 
+    y_test: list
+    accuracy_fold: float
+    Bestparam: float
+    acc: list
+    Final_Classifiers: classifiers (optional)
+    Xtest: matrix (optional)
+    """
+    if Norm == True:
+        data = np.log1p(data)  # log(1+x)
+
+    folds = StratifiedKFold(n_splits=n_folds, shuffle=True, random_state=1)
+    j = 1
+    for train_idx, test_idx in folds.split(data, labels):
+        print('new fold')
+        if j == fold:
+            X_test = data[test_idx, :]
+            X_train = data[train_idx, :]
+            y_test = labels[test_idx]
+            y_train = labels[train_idx]
+
+            Xtest_tuning, Xtrain_tuning, ytest_tuning, ytrain_tuning = train_test_split(
+                X_train, y_train, stratify=y_train, train_size=0.25, random_state=6
+            )
+
+            i = 0
+            param_grid = ParameterGrid(parameters)
+            acc = np.zeros(len(list(param_grid)))
+            for params in param_grid:
+                classifier_ = classifier_.set_params(**params)
+                clf = LCPN(
+                    classifier_, sep=";", n_jobs=n_jobsHCL, random_state=0, verbose=1
+                )
+                clf.fit(Xtrain_tuning, ytrain_tuning.ravel())
+                y_pred, y_probs = clf.predict(
+                    Xtest_tuning, reject_thr=reject_thresh, greedy=greedy_
+                )  # is a list$
+                # print(type(y_pred))
+                if metric == "accuracy_score":
+                    acc[i] = accuracy_score(ytest_tuning, y_pred)
+                elif metric == "log_loss":
+                    acc[i] = log_loss(ytest_tuning, LCPN.predict_proba(clf, Xtest_tuning.todense()))
+
+                i += 1
+
+            acc = list(acc)
+            print("training metrics in this fold", acc)
+            if metric == "accuracy_score":
+                max_accuracy = max(acc)
+            elif metric == "log_loss":
+                max_accuracy = min(acc)
+            index_bestparam = acc.index(max_accuracy)
+            Bestparam = list(param_grid)[index_bestparam]
+
+            
+            classifier_ = classifier_.set_params(**params)
+            Final_Classifier = LCPN(
+                classifier_, sep=";", n_jobs=n_jobsHCL, random_state=0, verbose=1
+            )
+            Final_Classifier.fit(X_train, y_train.ravel())
+
+            predicted, probs = Final_Classifier.predict(
+                X_test, reject_thr=reject_thresh, greedy=greedy_
+            )
+            if metric == "accuracy_score":
+                accuracyfold = accuracy_score(y_test, predicted)
+            elif metric == "log_loss":
+                accuracyfold = log_loss(
+                    y_test, LCPN.predict_proba(Final_Classifier, X_test.todense())
+                )
+            print("test metric fold", accuracyfold)
+            print("\n")
+      
+            if save_clf:
+                return (
+                    predicted,
+                    y_test,
+                    accuracyfold,
+                    Bestparam,
+                    acc,
+                    Final_Classifier,
+                    X_test,
+                )
+            else:
+                return (
+                    predicted,
+                    y_test,
+                    accuracyfold,
+                    Bestparam,
+                    acc,
+                )
+        else:
+            j += 1
+            continue
 
 ##### FUNCTION TO SAVE THE RESULTS
 def SaveResultsKF(
