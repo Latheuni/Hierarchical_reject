@@ -26,7 +26,7 @@ Flat analyses
 Hierarchical analyses
 ^^^^^^^^^^^^^^^^^^^^^
 .. automodule:: Run.General_analyses
-    :members: Run_H_KF, Run_H_KF_sparse, Run_H_KF_sparse_splitted, Run_H_KF_sparse
+    :members: Run_H_KF, Run_H_KF_sparse, Run_H_KF_sparse_splitted, Run_H_KF_sparse  
 
 To save the results
 -------------------
