@@ -1602,10 +1602,9 @@ def Run_H_KF_splitted(
     HVG=False,
     F_test=False,
     save_clf=False,
-    metric="accuracy_score",
-):
-
- """Function to run hierarchical classification with for one K-fold cross validation fold on a dense data matrix.
+    metric="accuracy_score"):
+    """
+    Function to run hierarchical classification with for one K-fold cross validation fold on a dense data matrix.
 
     Parameters
     ----------
@@ -1745,6 +1744,7 @@ def Run_H_KF_splitted(
         else:
             j += 1
             continue
+        
 def Run_H_KF_sparse_splitted(
     classifier_,
     n_folds,
@@ -1761,7 +1761,7 @@ def Run_H_KF_sparse_splitted(
     save_clf=False,
     metric="accuracy_score",
 ):
- """Function to run hierarchical classification with for one K-fold cross validation fold on a sparse data matrix.
+    """Function to run hierarchical classification with for one K-fold cross validation fold on a sparse data matrix.
 
     Parameters
     ----------
