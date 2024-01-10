@@ -1602,7 +1602,8 @@ def Run_H_KF_splitted(
     HVG=False,
     F_test=False,
     save_clf=False,
-    metric="accuracy_score"):
+    metric="accuracy_score",
+    ):
     """
     Function to run hierarchical classification with for one K-fold cross validation fold on a dense data matrix.
 
